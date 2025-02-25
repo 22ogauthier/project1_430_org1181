@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Nook</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+    <section id="top">
+        <h1>Book Nook</h1>
+
+        <button type="button" class="collapsible">Get All Books</button>
+        <div class="content">
+            <form id="userForm" action="/getBooks" method="get">
+                <select id="methodSelect">
+                    <option value="get">GET</option>
+                    <option value="head">HEAD</option>
+                </select>
+                <input type="submit" value="Get Book" />
+            </form>
+        </div>
+
+        <button type="button" class="collapsible">Get Book Titles</button>
+        <div class="content"></div>
+
+        <button type="button" class="collapsible">Get Book Genres</button>
+        <div class="content"></div>
+
+        <button type="button" class="collapsible">Get Book Author</button>
+        <div class="content"></div>
+
+        <button type="button" class="collapsible">Add Book</button>
+        <form id="nameForm" action="/addBook" method="post">
+
+            <label for="author">Author: </label>
+            <input id="authorField" type="text" name="author" />
+
+            <label for="title">Title: </label>
+            <input id="titleField" type="text" name="title" />
+
+            <label for="country">Country: </label>
+            <input id="countryField" type="text" name="country" />
+
+            <label for="genres">Genres: </label>
+            <input id="genresField" type="text" name="genres" />
+
+            <label for="language">Language: </label>
+            <input id="languageField" type="text" name="language" />
+
+            <label for="link">Link: </label>
+            <input id="linkField" type="text" name="link" />
+
+            <label for="pages">Pages: </label>
+            <input id="pagesField" type="text" name="pages" min="0" max="1000" step="1"/>
+
+            <label for="year">Year: </label>
+            <input id="yearField" type="text" name="year" min="0" max="1000" step="1"/>
+
+            <input type="submit" value="Add Book" />
+        </form>
+        <div class="content"></div>
+
+        <button type="button" class="collapsible">Rate Book</button>
+        <div class="content"></div>
+
+    </section>
+    <section id="content">
+    </section>
+</body>
+
+<script>
+    //From W3Schools
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+
+
+    const handleResponse = async (response, postRequest, getRequest) => {
+        const content = document.getElementById('content');
+
+        switch (response.status) {
+            case 200: //success
+                console.log("success");
+                break;
+            case 404:
+                console.log("not found");
+                break;
+            default:
+                console.log("default");
+                break;
+        }
+
+        if (postRequest) {
+            if (response.status === 201 || response.status === 400) {
+                let obj = await response.json();
+                console.log("obj: ", obj);
+                content.innerHTML += `<br><p>${obj.message}</p></br>`;
+            }
+        }
+
+        if (getRequest) {
+            let obj = await response.json();
+            console.log("obj: ", obj);
+
+            let htmlString = "<p>Books List</p>";
+
+            obj.books.forEach(book => {
+                htmlString += `
+                <div>
+                    <strong>Title: </strong>${book.title}<br>
+                    <strong>Author: </strong>${book.author}<br>
+                    <strong>Year: </strong>${book.year}<br>
+                    <strong>Pages: </strong>${book.pages}<br>
+                    <strong>Country: </strong>${book.country}<br>
+                    <strong>Language: </strong>${book.language}<br>
+                    <strong>Genres: </strong>${book.genres}<br>
+                    <strong>Link: </strong>${book.link}<br>
+                    <hr>
+                </div>
+                `;
+            });
+
+            content.innerHTML = htmlString;
+        }
+    };
+
+    const requestUpdate = async (userForm) => {
+        const method = userForm.querySelector('#methodSelect').value;
+
+        let response = await fetch('/getBooks', {
+            headers: {
+                'Accept': 'application/json'
+            },
+        });
+        handleResponse(response, false, method === 'get');
+    };
+
+    const init = () => {
+        const userForm = document.querySelector('#userForm');
+        const nameForm = document.querySelector('#nameForm');
+
+        const getBooks = (e) => {
+            e.preventDefault();
+            requestUpdate(userForm);
+            return false;
+        }
+
+        userForm.addEventListener('submit', getBooks);
+    };
+
+    window.onload = init;
+</script>
+
+</html>
