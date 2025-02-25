@@ -40,7 +40,17 @@
         <div class="content"></div>
 
         <button type="button" class="collapsible">Get Book Author</button>
-        <div class="content"></div>
+        <div class="content">
+            <form id="getBooksAuthorForm" action="/getBooksAuthor" method="GET">
+                <select id="methodSelect">
+                    <option value="GET">GET</option>
+                    <option value="HEAD">HEAD</option>
+                </select>
+                <label for="author">Title: </label>
+                <input id="authorField" type="text" name="author" />
+                <input type="submit" value="Get Book" />
+            </form>
+        </div>
 
         <button type="button" class="collapsible">Add Book</button>
         <form id="nameForm" action="/addBook" method="post">
@@ -153,7 +163,12 @@
         let url = form.action;
         if (form.querySelector("#titleField")) {
             const title = form.querySelector("#titleField").value;
-            url = form.action + `?title=${title}`;
+            url += `?title=${title}`;
+            console.log(url);
+        }
+        if (form.querySelector("#authorField")) {
+            const author = form.querySelector("#authorField").value;
+            url += `?author=${author}`;
             console.log(url);
         }
 
@@ -177,24 +192,6 @@
                 return false;
             })
         );
-
-        // const getBooksForm = document.querySelector('#getBooksForm');
-        // const getBooksTitleForm = document.querySelector('#getBooksTitleForm');
-
-        // const getBooks = (e) => {
-        //     e.preventDefault();
-        //     requestUpdate(getBooksForm);
-        //     return false;
-        // }
-
-        // const getTitle = (e) => {
-        //     e.preventDefault();
-        //     requestUpdate(getBooksTitleForm);
-        //     return false;
-        // }
-
-        // getBooksForm.addEventListener('submit', getBooks);
-        // getBooksTitleForm.addEventListener('submit', getTitle);
     };
 
     window.onload = init;

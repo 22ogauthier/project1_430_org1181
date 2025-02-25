@@ -43,22 +43,58 @@ const getBooks = (request, response) => {
 
 const getBooksTitle = (request, response) => {
     console.log("get books title called");
+    let searchWord = "";
     const url = new URL(request.url, `http://${request.headers.host}`);
     console.log("url: ", url);
-    const searchWord = url.search.slice(7);
+    //geeks for geeks
+    console.log("search params: ", url.searchParams);
+    url.searchParams.forEach(function (value, key) {
+        searchWord = value;
+        console.log(key, value);
+    });
+    //const searchWord = url.search.slice(7);
     console.log(searchWord);
 
     const matchingBooks = [];
 
     console.log("books length: ", books.length);
 
-    for (let i=0; i < books.length; i++) {
+    for (let i = 0; i < books.length; i++) {
         let title = books[i].title;
-        console.log(title);
         if (title.includes(searchWord)) {
-            console.log(books[i].title);
             matchingBooks.push(books[i]);
-        } 
+        }
+    };
+
+    const responseJSON = {
+        matchingBooks,
+    };
+    console.log("matching books: ", matchingBooks);
+    //console.log('responseJSON: ', responseJSON);
+
+    return respondJSON(request, response, 200, responseJSON);
+};
+
+const getBooksAuthor = (request, response) => {
+    console.log("get books author called");
+    let searchWord = "";
+    const url = new URL(request.url, `http://${request.headers.host}`);
+    console.log("url: ", url);
+    //geeks for geeks
+    console.log("search params: ", url.searchParams);
+    url.searchParams.forEach(function (value, key) {
+        searchWord = value;
+        console.log(key, value);
+    });
+    console.log(searchWord);
+
+    const matchingBooks = [];
+
+    for (let i = 0; i < books.length; i++) {
+        let author = books[i].author;
+        if (author.includes(searchWord)) {
+            matchingBooks.push(books[i]);
+        };
     };
 
     const responseJSON = {
@@ -83,5 +119,6 @@ const notFound = (request, response) => {
 module.exports = {
     getBooks,
     getBooksTitle,
+    getBooksAuthor,
     notFound,
 };

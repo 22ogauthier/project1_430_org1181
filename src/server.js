@@ -45,6 +45,8 @@ const handleGet = (request, response, parsedUrl) => {
         responseHandler.getBooks(request, response);
     } else if (parsedUrl.pathname === '/getBooksTitles') {
         responseHandler.getBooksTitle(request, response);
+    } else if (parsedUrl.pathname === '/getBooksAuthor') {
+        responseHandler.getBooksAuthor(request, response);
     } else {
         responseHandler.notFound(request, response);
     }
