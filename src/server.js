@@ -28,8 +28,10 @@ const parseBody = (request, response, handler) => {
 
 const handlePost = (request, response, parsedUrl) => {
     // If they go to /addUser
-    if (parsedUrl.pathname === '/addUser') {
-        parseBody(request, response, responseHandler.addUser);
+    if (parsedUrl.pathname === '/addBook') {
+        parseBody(request, response, responseHandler.addBook);
+    } else if (parsedUrl.pathname === '/addRating') {
+        parseBody(request, response, responseHandler.addRating);
     }
 };
 
@@ -47,6 +49,8 @@ const handleGet = (request, response, parsedUrl) => {
         responseHandler.getBooksTitle(request, response);
     } else if (parsedUrl.pathname === '/getBooksAuthor') {
         responseHandler.getBooksAuthor(request, response);
+    } else if (parsedUrl.pathname === '/getBooksGenres') {
+        responseHandler.getBooksGenres(request, response);
     } else {
         responseHandler.notFound(request, response);
     }

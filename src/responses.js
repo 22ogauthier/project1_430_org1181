@@ -106,6 +106,18 @@ const getBooksAuthor = (request, response) => {
     return respondJSON(request, response, 200, responseJSON);
 };
 
+const getBooksGenres = (request, response) => {
+
+};
+
+const addBook = (request, response) => {
+
+};
+
+const addRating = (request, response) => {
+
+};
+
 const notFound = (request, response) => {
     const responseJSON = {
         message: 'The page you are looking for was not found.',
@@ -120,5 +132,8 @@ module.exports = {
     getBooks,
     getBooksTitle,
     getBooksAuthor,
+    getBooksGenres,
+    addBook,
+    addRating,
     notFound,
 };

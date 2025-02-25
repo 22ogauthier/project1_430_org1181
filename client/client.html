@@ -37,7 +37,17 @@
         </div>
 
         <button type="button" class="collapsible">Get Book Genres</button>
-        <div class="content"></div>
+        <div class="content">
+            <form id="getBooksGenresForm" action="/getBooksGenres" method="GET">
+                <select id="methodSelect">
+                    <option value="GET">GET</option>
+                    <option value="HEAD">HEAD</option>
+                </select>
+                <label for="genre">Genre: </label>
+                <input id="genreField" type="text" name="genre" />
+                <input type="submit" value="Get Book" />
+            </form>
+        </div>
 
         <button type="button" class="collapsible">Get Book Author</button>
         <div class="content">
@@ -84,7 +94,12 @@
         <div class="content"></div>
 
         <button type="button" class="collapsible">Rate Book</button>
-        <div class="content"></div>
+        <div class="content">
+            <form id="addRatingForm" action="/addRating" method="post">
+                <label for="Rating">Author: </label>
+                <input id="ratingField" type="text" name="rating" />
+            </form>
+        </div>
 
     </section>
     <section id="content">
