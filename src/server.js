@@ -34,6 +34,8 @@ const handlePost = (request, response, parsedUrl) => {
 };
 
 const handleGet = (request, response, parsedUrl) => {
+    console.log("handle get called");
+    console.log("parsedUrl:", parsedUrl.pathname);
     // route to correct method based on url
     if (parsedUrl.pathname === '/') {
         htmlHandler.getIndex(request, response);
@@ -41,22 +43,28 @@ const handleGet = (request, response, parsedUrl) => {
         htmlHandler.getCSS(request, response);
     } else if (parsedUrl.pathname === '/getBooks') {
         responseHandler.getBooks(request, response);
+    } else if (parsedUrl.pathname === '/getBooksTitles') {
+        responseHandler.getBooksTitle(request, response);
     } else {
         responseHandler.notFound(request, response);
     }
 };
 
 const onRequest = (request, response) => {
+    console.log("onrequest called");
     const protocol = request.connection.encrypted ? 'https' : 'http';
     const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
+
+    console.log("Incoming request:", request.method, parsedUrl.pathname);
 
     if (request.method === 'POST') {
         handlePost(request, response, parsedUrl);
     } else {
+        console.log("routing to handleGet");
         handleGet(request, response, parsedUrl);
     }
 };
 
-http.createServer(onRequest).listen(port, () => {
-    console.log(`Listening on 127.0.0.1: ${port}`);
+http.createServer(onRequest).listen(port, "0.0.0.0", () => {
+    console.log(`Listening on 0.0.0.0:${port}`);
 });

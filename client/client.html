@@ -14,17 +14,27 @@
 
         <button type="button" class="collapsible">Get All Books</button>
         <div class="content">
-            <form id="userForm" action="/getBooks" method="get">
+            <form id="getBooksForm" action="/getBooks" method="GET">
                 <select id="methodSelect">
-                    <option value="get">GET</option>
-                    <option value="head">HEAD</option>
+                    <option value="GET">GET</option>
+                    <option value="HEAD">HEAD</option>
                 </select>
                 <input type="submit" value="Get Book" />
             </form>
         </div>
 
         <button type="button" class="collapsible">Get Book Titles</button>
-        <div class="content"></div>
+        <div class="content">
+            <form id="getBooksTitleForm" action="/getBooksTitles" method="GET">
+                <select id="methodSelect">
+                    <option value="GET">GET</option>
+                    <option value="HEAD">HEAD</option>
+                </select>
+                <label for="title">Title: </label>
+                <input id="titleField" type="text" name="title" />
+                <input type="submit" value="Get Book" />
+            </form>
+        </div>
 
         <button type="button" class="collapsible">Get Book Genres</button>
         <div class="content"></div>
@@ -54,10 +64,10 @@
             <input id="linkField" type="text" name="link" />
 
             <label for="pages">Pages: </label>
-            <input id="pagesField" type="text" name="pages" min="0" max="1000" step="1"/>
+            <input id="pagesField" type="text" name="pages" min="0" max="1000" step="1" />
 
             <label for="year">Year: </label>
-            <input id="yearField" type="text" name="year" min="0" max="1000" step="1"/>
+            <input id="yearField" type="text" name="year" min="0" max="1000" step="1" />
 
             <input type="submit" value="Add Book" />
         </form>
@@ -107,7 +117,7 @@
         if (postRequest) {
             if (response.status === 201 || response.status === 400) {
                 let obj = await response.json();
-                console.log("obj: ", obj);
+                //console.log("obj: ", obj);
                 content.innerHTML += `<br><p>${obj.message}</p></br>`;
             }
         }
@@ -118,7 +128,7 @@
 
             let htmlString = "<p>Books List</p>";
 
-            obj.books.forEach(book => {
+            obj.matchingBooks.forEach(book => {
                 htmlString += `
                 <div>
                     <strong>Title: </strong>${book.title}<br>
@@ -138,28 +148,53 @@
         }
     };
 
-    const requestUpdate = async (userForm) => {
-        const method = userForm.querySelector('#methodSelect').value;
+    const requestUpdate = async (form) => {
+        //const method = form.querySelector('#methodSelect').value;
+        let url = form.action;
+        if (form.querySelector("#titleField")) {
+            const title = form.querySelector("#titleField").value;
+            url = form.action + `?title=${title}`;
+            console.log(url);
+        }
 
-        let response = await fetch('/getBooks', {
+        let response = await fetch(url, {
+            method: form.method.toUpperCase(),
             headers: {
                 'Accept': 'application/json'
             },
         });
-        handleResponse(response, false, method === 'get');
+
+        console.log("fetch response: ", response);
+        handleResponse(response, false, form.method.toUpperCase() === 'GET');
     };
 
     const init = () => {
-        const userForm = document.querySelector('#userForm');
-        const nameForm = document.querySelector('#nameForm');
 
-        const getBooks = (e) => {
-            e.preventDefault();
-            requestUpdate(userForm);
-            return false;
-        }
+        document.querySelectorAll('form').forEach(form =>
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                requestUpdate(form);
+                return false;
+            })
+        );
 
-        userForm.addEventListener('submit', getBooks);
+        // const getBooksForm = document.querySelector('#getBooksForm');
+        // const getBooksTitleForm = document.querySelector('#getBooksTitleForm');
+
+        // const getBooks = (e) => {
+        //     e.preventDefault();
+        //     requestUpdate(getBooksForm);
+        //     return false;
+        // }
+
+        // const getTitle = (e) => {
+        //     e.preventDefault();
+        //     requestUpdate(getBooksTitleForm);
+        //     return false;
+        // }
+
+        // getBooksForm.addEventListener('submit', getBooks);
+        // getBooksTitleForm.addEventListener('submit', getTitle);
     };
 
     window.onload = init;

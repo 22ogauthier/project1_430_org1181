@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let books = {};
+let books = [];
 
 //help from ChatGPT
 fs.readFile(`${__dirname}/../data/books.json`, 'utf8', (err, data) => {
@@ -31,10 +31,41 @@ const respondJSON = (request, response, status, object) => {
 };
 
 const getBooks = (request, response) => {
+    const matchingBooks = books;
     const responseJSON = {
-        books,
+        matchingBooks,
     };
-    console.log('responseJSON: ', responseJSON);
+    //console.log('responseJSON: ', responseJSON);
+
+    return respondJSON(request, response, 200, responseJSON);
+};
+
+
+const getBooksTitle = (request, response) => {
+    console.log("get books title called");
+    const url = new URL(request.url, `http://${request.headers.host}`);
+    console.log("url: ", url);
+    const searchWord = url.search.slice(7);
+    console.log(searchWord);
+
+    const matchingBooks = [];
+
+    console.log("books length: ", books.length);
+
+    for (let i=0; i < books.length; i++) {
+        let title = books[i].title;
+        console.log(title);
+        if (title.includes(searchWord)) {
+            console.log(books[i].title);
+            matchingBooks.push(books[i]);
+        } 
+    };
+
+    const responseJSON = {
+        matchingBooks,
+    };
+    console.log("matching books: ", matchingBooks);
+    //console.log('responseJSON: ', responseJSON);
 
     return respondJSON(request, response, 200, responseJSON);
 };
@@ -51,5 +82,6 @@ const notFound = (request, response) => {
 
 module.exports = {
     getBooks,
+    getBooksTitle,
     notFound,
 };
