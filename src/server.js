@@ -74,6 +74,6 @@ const onRequest = (request, response) => {
     }
 };
 
-http.createServer(onRequest).listen(port, "0.0.0.0", () => {
-    console.log(`Listening on 0.0.0.0:${port}`);
+http.createServer(onRequest).listen(port, () => {
+    console.log(`Listening on ${port}`);
 });
