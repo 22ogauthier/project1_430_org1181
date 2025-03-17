@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+    <section id="top">
+        <h1>Book Nook API Documentation</h1>
+        <a href="/"><button>Go to API</button></a>
+    </section>
+
+    <button type="button" class="collapsible">/getBooks</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Methods</h2>
+            <p><code>GET</code> and <code>HEAD</code></p>
+        </div>
+        <div>
+            <h2>Query Parameters</h2>
+            <p>No supported parameters.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON array of all book objects in JSON database.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/getBooks</code></p>
+            <p>Result:
+                <code>[{ author: 'Hans Christian Andersen', country: 'Denmark', language: 'Danish', link: 'www....', pages: '784', title: 'Fairy tales', year: '1836', genres: ['Fairy Tales', 'Children's Literature'] }]</code>
+            </p>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">/getBooksTitles</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Methods</h2>
+            <p><code>GET</code> and <code>HEAD</code></p>
+        </div>
+        <div>
+            <h2>Query Parameters</h2>
+            <p><code>title </code>(required): A book's title to filter by.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON array of all of the book objects in the JSON database that contain the string inputed by the
+                user
+                in their title.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/getBooksTitles?title=Fairy tales</code></p>
+            <p>Result:
+                <code>[{ author: 'Hans Christian Andersen', country: 'Denmark', language: 'Danish', link: 'www....', pages: '784', title: 'Fairy tales', year: '1836', genres: ['Fairy Tales', 'Children's Literature'] }]</code>
+            </p>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">/getBooksGenres</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Methods</h2>
+            <p><code>GET</code> and <code>HEAD</code></p>
+        </div>
+        <div>
+            <h2>Query Parameters</h2>
+            <p><code>genre </code>(required): A book genre to filter by.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON array of all of the book objects in the JSON database that contain the string inputed by the
+                user
+                in their genres array.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/getBooksGenres?genre=children's</code></p>
+            <p>Result:
+                <code>[{ author: 'Franz Kafka', country: 'Czechoslovakia', language: 'German', link: 'www....', pages: '488', title: 'Stories', year: '1924', genres: ["Folk Tales", "Classic Children's Literature"] }]</code>
+                <code>[{ author: 'Hans Christian Andersen', country: 'Denmark', language: 'Danish', link: 'www....', pages: '784', title: 'Fairy tales', year: '1836', genres: ['Fairy Tales', 'Children's Literature'] }]</code>
+            </p>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">/getBooksAuthor</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Methods</h2>
+            <p><code>GET</code> and <code>HEAD</code></p>
+        </div>
+        <div>
+            <h2>Body Parameters</h2>
+            <p><code>author </code>(required): An author to filter by.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON array of all of the book objects in the JSON database that contain the string inputed by the
+                user
+                in their author attribute.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/getBooksAuthor?author=Franz</code></p>
+            <p>Result:
+                <code>[{ author: 'Franz Kafka', country: 'Czechoslovakia', language: 'German', link: 'www....', pages: '488', title: 'Stories', year: '1924', genres: ["Folk Tales", "Classic Children's Literature"] }]</code>
+                <code>[{ author: 'Franz Kafka', country: 'Czechoslovakia', language: 'German', link: 'www....', pages: '160', title: 'The Trial', year: '1925', genres: ['Modernism', 'Feminism'] }]</code>
+            </p>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">/addBook</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Method</h2>
+            <p><code>POST</code></p>
+        </div>
+        <div>
+            <h2>Supported Body Formats</h2>
+            <p><code>application/json</code> and <code>application/x-www-form-urlencoded</code></p>
+        </div>
+        <div>
+            <h2>Body Parameters</h2>
+            <p><code>author </code>(string, required): The author of the book.</p>
+            <p><code>country </code>(string, required): The country of origin of the book.</p>
+            <p><code>language </code>(string, required): The original language of the book.</p>
+            <p><code>link </code>(string, required): A link to a website with more information about the book.</p>
+            <p><code>pages </code>(number, required): The number of pages of the book.</p>
+            <p><code>year </code>(number, required): The year the book was first published in.</p>
+            <p><code>genre </code>(string, required): A book genre the book would belong to.</p>
+            <p><code>rating </code>(number, required): Your personal rating for the book.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON book object representing the new book.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/addBook</code></p>
+            <p>Body: [{ author: 'Franz Kafka', country: 'Czechoslovakia', language: 'German', link: 'www....',
+                pages:
+                '160', title: 'The Trial', year: '1925', genres: ['Modernism', 'Feminism'], rating:
+                '5'}]<code></code>
+            </p>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">/addRating</button>
+    <div class="content">
+        <div>
+            <h2>Accepted Method</h2>
+            <p><code>POST</code></p>
+        </div>
+        <div>
+            <h2>Supported Body Formats</h2>
+            <p><code>application/json</code> and <code>application/x-www-form-urlencoded</code></p>
+        </div>
+        <div>
+            <h2>Body Parameters</h2>
+            <p><code>title </code>(string, required): The title of the book.</p>
+            <p><code>rating </code>(number, required): Your personal rating for the book.</p>
+        </div>
+        <div>
+            <h2>Returns</h2>
+            <p>A JSON book object representing the book with the new rating.</p>
+            <code>[{ author: string, country: string, language: string, link: string, pages: int, year: int, genres: [string], rating?: float }]</code>
+        </div>
+        <div>
+            <h2>Example</h2>
+            <p>Request: <code>/addRating</code></p>
+            <p>Body: [{ title: 'The Trial', , rating: '5'}]<code></code>
+            </p>
+        </div>
+    </div>
+    <section id="content"></section>
+</body>
+
+<script>
+    //From W3Schools
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+
+</html>

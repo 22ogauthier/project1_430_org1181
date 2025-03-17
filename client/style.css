@@ -16,8 +16,9 @@ html, body {
   
   #content {
     margin-top: 100px;
-    font-size: 2em;
-    text-align: center;
+    font-size: 1em;
+    margin: 50px;
+    text-align: left;
   }
 
   /*from W3Schools
@@ -27,6 +28,7 @@ html, body {
   color: #444;
   cursor: pointer;
   padding: 18px;
+  margin: 10px 10px 0px 10px;
   width: 100%;
   border: none;
   text-align: left;
@@ -41,8 +43,15 @@ html, body {
 
 /* Style the collapsible content. Note: hidden by default */
 .content {
-  padding: 0 18px;
+  text-align: left;
+  margin: 0 10px;
+  padding: 20px 18px;
   display: none;
+  width: 100%;
   overflow: hidden;
   background-color: #f1f1f1;
+}
+
+.inputField {
+  margin: 5px;
 }

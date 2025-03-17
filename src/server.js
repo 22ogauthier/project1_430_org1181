@@ -41,6 +41,8 @@ const handleGet = (request, response, parsedUrl) => {
     // route to correct method based on url
     if (parsedUrl.pathname === '/') {
         htmlHandler.getIndex(request, response);
+    } else if (parsedUrl.pathname === '/doc.html') {
+        htmlHandler.getDoc(request, response);
     } else if (parsedUrl.pathname === '/style.css') {
         htmlHandler.getCSS(request, response);
     } else if (parsedUrl.pathname === '/getBooks') {
@@ -51,6 +53,10 @@ const handleGet = (request, response, parsedUrl) => {
         responseHandler.getBooksAuthor(request, response);
     } else if (parsedUrl.pathname === '/getBooksGenres') {
         responseHandler.getBooksGenres(request, response);
+        // } else if (parsedUrl.pathname === '/addBook') { //added this - check if its different for post
+        //     responseHandler.addBook(request, response);
+        // } else if (parsedUrl.pathname === '/addRating') { //added this
+        //     responseHandler.addRating(request, response);
     } else {
         responseHandler.notFound(request, response);
     }
@@ -64,6 +70,7 @@ const onRequest = (request, response) => {
     console.log("Incoming request:", request.method, parsedUrl.pathname);
 
     if (request.method === 'POST') {
+        console.log("routing to handlePost");
         handlePost(request, response, parsedUrl);
     } else {
         console.log("routing to handleGet");

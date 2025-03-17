@@ -35,87 +35,160 @@ const getBooks = (request, response) => {
     const responseJSON = {
         matchingBooks,
     };
-    //console.log('responseJSON: ', responseJSON);
 
+    if (request.method === 'HEAD') {
+        return respondJSON(request, response, 204, responseJSON);
+    }
     return respondJSON(request, response, 200, responseJSON);
 };
 
-
 const getBooksTitle = (request, response) => {
-    console.log("get books title called");
     let searchWord = "";
     const url = new URL(request.url, `http://${request.headers.host}`);
-    console.log("url: ", url);
-    //geeks for geeks
-    console.log("search params: ", url.searchParams);
+
     url.searchParams.forEach(function (value, key) {
         searchWord = value;
-        console.log(key, value);
     });
-    //const searchWord = url.search.slice(7);
-    console.log(searchWord);
 
-    const matchingBooks = [];
+    let responseJSON;
 
-    console.log("books length: ", books.length);
+    if (searchWord == '') {
+        responseJSON = {
+            message: 'Missing title search parameter',
+        };
+        return respondJSON(request, response, 400, responseJSON);
+    } else {
+        const matchingBooks = [];
 
-    for (let i = 0; i < books.length; i++) {
-        let title = books[i].title;
-        if (title.includes(searchWord)) {
-            matchingBooks.push(books[i]);
+        for (let i = 0; i < books.length; i++) {
+            let title = books[i].title;
+            if (title.includes(searchWord)) {
+                matchingBooks.push(books[i]);
+            }
+        };
+        responseJSON = {
+            matchingBooks,
+        };
+        if (request.method === 'HEAD') {
+            return respondJSON(request, response, 204, responseJSON);
         }
-    };
-
-    const responseJSON = {
-        matchingBooks,
-    };
-    console.log("matching books: ", matchingBooks);
-    //console.log('responseJSON: ', responseJSON);
-
-    return respondJSON(request, response, 200, responseJSON);
+        return respondJSON(request, response, 200, responseJSON);
+    }
 };
 
 const getBooksAuthor = (request, response) => {
-    console.log("get books author called");
     let searchWord = "";
     const url = new URL(request.url, `http://${request.headers.host}`);
-    console.log("url: ", url);
-    //geeks for geeks
-    console.log("search params: ", url.searchParams);
+
     url.searchParams.forEach(function (value, key) {
         searchWord = value;
-        console.log(key, value);
     });
-    console.log(searchWord);
 
-    const matchingBooks = [];
+    let responseJSON;
 
-    for (let i = 0; i < books.length; i++) {
-        let author = books[i].author;
-        if (author.includes(searchWord)) {
-            matchingBooks.push(books[i]);
+    if (searchWord == '') {
+        responseJSON = {
+            message: 'Missing author search parameter',
         };
-    };
+        return respondJSON(request, response, 400, responseJSON);
+    } else {
+        const matchingBooks = [];
 
-    const responseJSON = {
-        matchingBooks,
-    };
-    console.log("matching books: ", matchingBooks);
-    //console.log('responseJSON: ', responseJSON);
+        for (let i = 0; i < books.length; i++) {
+            let author = books[i].author;
+            if (author.includes(searchWord)) {
+                matchingBooks.push(books[i]);
+            };
+        };
 
-    return respondJSON(request, response, 200, responseJSON);
+        responseJSON = {
+            matchingBooks,
+        };
+        if (request.method === 'HEAD') {
+            return respondJSON(request, response, 204, responseJSON);
+        }
+        return respondJSON(request, response, 200, responseJSON);
+    }
 };
 
 const getBooksGenres = (request, response) => {
+    let searchWord = "";
+    const url = new URL(request.url, `http://${request.headers.host}`);
 
+    url.searchParams.forEach(function (value, key) {
+        searchWord = value;
+    });
+
+    let responseJSON;
+
+    if (searchWord == '') {
+        responseJSON = {
+            message: 'Missing genre search parameter',
+        };
+        return respondJSON(request, response, 400, responseJSON);
+    } else {
+        const matchingBooks = [];
+
+        for (let i = 0; i < books.length; i++) {
+            if (books[i].genres) {
+                for (let y = 0; y < books[i].genres.length; y++) {
+                    let genre = books[i].genres[y];
+                    if (genre.toLowerCase().includes(searchWord.toLowerCase())) {
+                        matchingBooks.push(books[i]);
+                    };
+                }
+            }
+        };
+        responseJSON = {
+            matchingBooks
+        };
+        if (request.method === 'HEAD') {
+            return respondJSON(request, response, 204, responseJSON);
+        }
+        return respondJSON(request, response, 200, responseJSON);
+    };
 };
 
 const addBook = (request, response) => {
+    const { author, country, language, link, pages, title, year, genres } = request.body;
 
+    let book = {
+        author: author,
+        country: country,
+        language: language,
+        link: link,
+        pages: pages,
+        title: title,
+        year: year,
+        genres: genres,
+    };
+    books.push(book);
+    return respondJSON(request, response, 201, {});
 };
 
 const addRating = (request, response) => {
+    const { title, rating } = request.body;
+    let match = false;
+    let responseJSON;
 
+    if (!title || !rating) {
+        console.log("Missing parameters for add rating");
+        return respondJSON(request, response, 400, {});
+    }
+
+    for (let i = 0; i < books.length; i++) {
+        if (books[i].title == title) {
+            books[i].rating = rating;
+            match = true;
+        }
+    }
+
+    if (!match) {
+        console.log("The book you are looking for does not exist.");
+        return respondJSON(request, response, 404, {});
+    };
+
+    return respondJSON(request, response, 201, {});
 };
 
 const notFound = (request, response) => {

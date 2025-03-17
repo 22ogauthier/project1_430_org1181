@@ -10,100 +10,109 @@
 
 <body>
     <section id="top">
-        <h1>Book Nook</h1>
+        <h1>Book Nook API</h1>
+        <a href="/doc.html"><button>Go to Documentation</button></a>
+    </section>
 
-        <button type="button" class="collapsible">Get All Books</button>
-        <div class="content">
-            <form id="getBooksForm" action="/getBooks" method="GET">
-                <select id="methodSelect">
-                    <option value="GET">GET</option>
-                    <option value="HEAD">HEAD</option>
-                </select>
-                <input type="submit" value="Get Book" />
-            </form>
-        </div>
+    <button type="button" class="collapsible">Get All Books</button>
+    <div class="content">
+        <form id="getBooksForm" action="/getBooks" method="GET">
+            <select id="methodSelect">
+                <option value="GET">GET</option>
+                <option value="HEAD">HEAD</option>
+            </select>
+            <input type="submit" value="Get Book" />
+        </form>
+    </div>
 
-        <button type="button" class="collapsible">Get Book Titles</button>
-        <div class="content">
-            <form id="getBooksTitleForm" action="/getBooksTitles" method="GET">
-                <select id="methodSelect">
-                    <option value="GET">GET</option>
-                    <option value="HEAD">HEAD</option>
-                </select>
-                <label for="title">Title: </label>
-                <input id="titleField" type="text" name="title" />
-                <input type="submit" value="Get Book" />
-            </form>
-        </div>
+    <button type="button" class="collapsible">Get Book Title</button>
+    <div class="content">
+        <form id="getBooksTitleForm" action="/getBooksTitles" method="GET">
+            <select id="methodSelect">
+                <option value="GET">GET</option>
+                <option value="HEAD">HEAD</option>
+            </select>
+            <label for="title">Title: </label>
+            <input id="titleField" class="inputField" type="text" name="title" />
+            <input type="submit" value="Get Book" />
+        </form>
+        <br>
+        <p id="getBooksTitleError" class="errorMessage"></p>
+    </div>
 
-        <button type="button" class="collapsible">Get Book Genres</button>
-        <div class="content">
-            <form id="getBooksGenresForm" action="/getBooksGenres" method="GET">
-                <select id="methodSelect">
-                    <option value="GET">GET</option>
-                    <option value="HEAD">HEAD</option>
-                </select>
-                <label for="genre">Genre: </label>
-                <input id="genreField" type="text" name="genre" />
-                <input type="submit" value="Get Book" />
-            </form>
-        </div>
+    <button type="button" class="collapsible">Get Book Genres</button>
+    <div class="content">
+        <form id="getBooksGenresForm" action="/getBooksGenres" method="GET">
+            <select id="methodSelect">
+                <option value="GET">GET</option>
+                <option value="HEAD">HEAD</option>
+            </select>
+            <label for="genre">Genre: </label>
+            <input id="genreField" class="inputField" type="text" name="genre" />
+            <input type="submit" value="Get Book" />
+        </form>
+    </div>
 
-        <button type="button" class="collapsible">Get Book Author</button>
-        <div class="content">
-            <form id="getBooksAuthorForm" action="/getBooksAuthor" method="GET">
-                <select id="methodSelect">
-                    <option value="GET">GET</option>
-                    <option value="HEAD">HEAD</option>
-                </select>
-                <label for="author">Title: </label>
-                <input id="authorField" type="text" name="author" />
-                <input type="submit" value="Get Book" />
-            </form>
-        </div>
+    <button type="button" class="collapsible">Get Book Author</button>
+    <div class="content">
+        <form id="getBooksAuthorForm" action="/getBooksAuthor" method="GET">
+            <select id="methodSelect">
+                <option value="GET">GET</option>
+                <option value="HEAD">HEAD</option>
+            </select>
+            <label for="author">Author: </label>
+            <input id="authorField" class="inputField" type="text" name="author" />
+            <input type="submit" value="Get Book" />
+        </form>
+    </div>
 
-        <button type="button" class="collapsible">Add Book</button>
-        <form id="nameForm" action="/addBook" method="post">
+    <button type="button" class="collapsible">Add Book</button>
+    <div class="content">
+        <form id="addBookForm" action="/addBook" method="post">
 
             <label for="author">Author: </label>
-            <input id="authorField" type="text" name="author" />
+            <input id="authorField" class="inputField" type="text" name="author" /><br>
 
             <label for="title">Title: </label>
-            <input id="titleField" type="text" name="title" />
+            <input id="titleField" class="inputField" type="text" name="title" /><br>
 
             <label for="country">Country: </label>
-            <input id="countryField" type="text" name="country" />
+            <input id="countryField" class="inputField" type="text" name="country" /><br>
 
             <label for="genres">Genres: </label>
-            <input id="genresField" type="text" name="genres" />
+            <input id="genresField" class="inputField" type="text" name="genres" /><br>
 
             <label for="language">Language: </label>
-            <input id="languageField" type="text" name="language" />
+            <input id="languageField" class="inputField" type="text" name="language" /><br>
 
             <label for="link">Link: </label>
-            <input id="linkField" type="text" name="link" />
+            <input id="linkField" class="inputField" type="text" name="link" /><br>
 
             <label for="pages">Pages: </label>
-            <input id="pagesField" type="text" name="pages" min="0" max="1000" step="1" />
+            <input id="pagesField" class="inputField" type="text" name="pages" min="0" max="1000" step="1" /><br>
 
             <label for="year">Year: </label>
-            <input id="yearField" type="text" name="year" min="0" max="1000" step="1" />
+            <input id="yearField" class="inputField" type="text" name="year" min="0" max="1000" step="1" /><br>
 
             <input type="submit" value="Add Book" />
         </form>
-        <div class="content"></div>
+    </div>
 
-        <button type="button" class="collapsible">Rate Book</button>
-        <div class="content">
-            <form id="addRatingForm" action="/addRating" method="post">
-                <label for="Rating">Author: </label>
-                <input id="ratingField" type="text" name="rating" />
-            </form>
-        </div>
+    <button type="button" class="collapsible">Rate Book</button>
+    <div class="content">
+        <form id="addRatingForm" action="/addRating" method="post">
+            <label for="title">Title: </label>
+            <input id="titleFieldAddRating" class="inputField" type="text" name="title" /><br>
 
-    </section>
-    <section id="content">
-    </section>
+            <label for="rating">Rating: </label>
+            <input id="ratingField" class="inputField" type="text" name="rating" />
+
+            <input type="submit" value="Add Rating" />
+        </form>
+        <br>
+        <p id=""></p>
+    </div>
+    <section id="content"></section>
 </body>
 
 <script>
@@ -127,12 +136,22 @@
     const handleResponse = async (response, postRequest, getRequest) => {
         const content = document.getElementById('content');
 
+        //ADD CASES
         switch (response.status) {
-            case 200: //success
-                console.log("success");
+            case 200:
+                console.log("OK");
+                break;
+            case 201:
+                console.log("Created");
+                break;
+            case 204:
+                console.log("No content");
+                break;
+            case 400:
+                console.log("Bad request");
                 break;
             case 404:
-                console.log("not found");
+                console.log("Not found");
                 break;
             default:
                 console.log("default");
@@ -140,42 +159,46 @@
         }
 
         if (postRequest) {
-            if (response.status === 201 || response.status === 400) {
-                let obj = await response.json();
-                //console.log("obj: ", obj);
-                content.innerHTML += `<br><p>${obj.message}</p></br>`;
-            }
-        }
+            let obj = await response.json();
+            if (obj.message) {
+                content.innerHTML = `<br><p>${obj.message}</p></br>`;
+            };
+        };
 
         if (getRequest) {
             let obj = await response.json();
-            console.log("obj: ", obj);
 
-            let htmlString = "<p>Books List</p>";
+            if (obj.message) {
+                content.innerHTML = `<br><p>${obj.message}</p><br>`;
+            } else {
+                let htmlString = "<strong>Books List</strong><br>";
 
-            obj.matchingBooks.forEach(book => {
-                htmlString += `
-                <div>
-                    <strong>Title: </strong>${book.title}<br>
-                    <strong>Author: </strong>${book.author}<br>
-                    <strong>Year: </strong>${book.year}<br>
-                    <strong>Pages: </strong>${book.pages}<br>
-                    <strong>Country: </strong>${book.country}<br>
-                    <strong>Language: </strong>${book.language}<br>
-                    <strong>Genres: </strong>${book.genres}<br>
-                    <strong>Link: </strong>${book.link}<br>
-                    <hr>
-                </div>
-                `;
-            });
-
-            content.innerHTML = htmlString;
+                obj.matchingBooks.forEach(book => {
+                    htmlString += `
+                        <div>
+                            <strong>Title: </strong>${book.title}<br>
+                            <strong>Author: </strong>${book.author}<br>
+                            <strong>Year: </strong>${book.year}<br>
+                            <strong>Pages: </strong>${book.pages}<br>
+                            <strong>Country: </strong>${book.country}<br>
+                            <strong>Language: </strong>${book.language}<br>
+                            <strong>Genres: </strong>${book.genres}<br>
+                            <strong>Link: </strong>${book.link}<br>
+                            <strong>Rating: </strong>${book.rating} <br>
+                            <hr>
+                        </div>
+                        `;
+                });
+                content.innerHTML = htmlString;
+            }
         }
     };
 
     const requestUpdate = async (form) => {
-        //const method = form.querySelector('#methodSelect').value;
+        content.innerHTML = "";
+        const method = form.querySelector('#methodSelect').value;
         let url = form.action;
+
         if (form.querySelector("#titleField")) {
             const title = form.querySelector("#titleField").value;
             url += `?title=${title}`;
@@ -186,27 +209,109 @@
             url += `?author=${author}`;
             console.log(url);
         }
+        if (form.querySelector("#genreField")) {
+            const genre = form.querySelector("#genreField").value;
+            url += `?genre=${genre}`;
+            console.log(url);
+        }
 
         let response = await fetch(url, {
-            method: form.method.toUpperCase(),
+            method: method.toUpperCase(),
             headers: {
                 'Accept': 'application/json'
             },
         });
 
         console.log("fetch response: ", response);
-        handleResponse(response, false, form.method.toUpperCase() === 'GET');
+        console.log("FORM METHOD: ", method);
+        handleResponse(response, false, method.toUpperCase() === 'GET');
+    };
+
+    const sendPost = async (form) => {
+        const url = form.getAttribute('action');
+        let formData;
+
+        if (form.querySelector("#ratingField")) {
+            console.log("add rating");
+            const title = form.querySelector("#titleFieldAddRating").value;
+            console.log(title);
+            const rating = form.querySelector("#ratingField").value;
+
+            formData = `title=${title}&rating=${rating}`;
+            console.log(url);
+            console.log(formData);
+        } else {
+            console.log("add book");
+            const authorField = form.querySelector('#authorField');
+            const titleField = form.querySelector('#titleField');
+            const countryField = form.querySelector('#countryField');
+            const genresField = form.querySelector('#genresField');
+            const languageField = form.querySelector('#languageField');
+            const linkField = form.querySelector('#linkField');
+            const pagesField = form.querySelector('#pagesField');
+            const yearField = form.querySelector('#yearField');
+
+            formData = `author=${authorField.value}&country=${countryField.value}&language=${languageField.value}&link=${linkField.value}&pages=${pagesField.value}&title=${titleField.value}&year=${yearField.value}&genres=${genresField.value}`;
+        }
+
+
+        let response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                //'Content-Length': Buffer.byteLength(content, 'utf8'), //added this line
+            },
+            body: formData,
+        });
+
+        handleResponse(response, true, false);
     };
 
     const init = () => {
+        const getBooksForm = document.querySelector('#getBooksForm');
+        const getBooksTitleForm = document.querySelector('#getBooksTitleForm');
+        const getBooksGenresForm = document.querySelector('#getBooksGenresForm');
+        const getBooksAuthorForm = document.querySelector('#getBooksAuthorForm');
 
-        document.querySelectorAll('form').forEach(form =>
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                requestUpdate(form);
-                return false;
-            })
-        );
+        const addBookForm = document.querySelector('#addBookForm');
+        const addRatingForm = document.querySelector('#addRatingForm');
+
+        document.querySelector('#getBooksForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            requestUpdate(getBooksForm);
+            return false;
+        });
+
+        document.querySelector('#getBooksTitleForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            requestUpdate(getBooksTitleForm);
+            return false;
+        });
+
+        document.querySelector('#getBooksGenresForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            requestUpdate(getBooksGenresForm);
+            return false;
+        });
+
+        document.querySelector('#getBooksAuthorForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            requestUpdate(getBooksAuthorForm);
+            return false;
+        });
+
+        document.querySelector('#addBookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendPost(addBookForm);
+            return false;
+        });
+
+        document.querySelector('#addRatingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendPost(addRatingForm);
+            return false;
+        });
     };
 
     window.onload = init;

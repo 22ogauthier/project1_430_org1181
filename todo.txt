@@ -1,0 +1,13 @@
+*error message if a user does not input a field - done
+
+*front end prettier
+
+*addRating - done
+
+*status code - need to find a way to detect head (201) from get (200) - hopefully done not 
+
+*return static files (html and css) - hopefully done
+
+*explanation page
+
+*get rid of console.log
