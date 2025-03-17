@@ -53,10 +53,6 @@ const handleGet = (request, response, parsedUrl) => {
         responseHandler.getBooksAuthor(request, response);
     } else if (parsedUrl.pathname === '/getBooksGenres') {
         responseHandler.getBooksGenres(request, response);
-        // } else if (parsedUrl.pathname === '/addBook') { //added this - check if its different for post
-        //     responseHandler.addBook(request, response);
-        // } else if (parsedUrl.pathname === '/addRating') { //added this
-        //     responseHandler.addRating(request, response);
     } else {
         responseHandler.notFound(request, response);
     }
