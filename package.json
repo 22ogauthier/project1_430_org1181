@@ -2,7 +2,7 @@
   "name": "project1_430_org1181",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
     "test": "echo \"Tests complete\""
@@ -13,11 +13,5 @@
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.31.0"
-  },
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "compression": "^1.8.0",
-    "express": "^4.21.2",
-    "express-handlebars": "^8.0.1"
   }
 }
