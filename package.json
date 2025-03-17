@@ -2,9 +2,9 @@
   "name": "project1_430_org1181",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node ./src/server.js",
     "test": "echo \"Tests complete\""
   },
   "author": "",
